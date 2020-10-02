@@ -10,7 +10,6 @@ const App = () => {
 			<Header />
 			<main className='py-3'>
 				<Container>
-					<h1>WELCOME TO TECH PRO</h1>
 					<HomePage />
 				</Container>
 			</main>
