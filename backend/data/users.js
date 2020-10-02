@@ -3,20 +3,20 @@ const bcrypt = require('bcryptjs');
 const users = [
 	{
 		firstName: 'mark',
-		lastNane: 'okafor',
+		lastName: 'okafor',
 		email: 'admin@admin.com',
 		password: bcrypt.hashSync('1234', 10),
 		isAdmin: true,
 	},
 	{
 		firstName: 'jon',
-		lastNane: 'snow',
+		lastName: 'snow',
 		email: 'jon@yahoo.com',
 		password: bcrypt.hashSync('1234', 10),
 	},
 	{
 		firstName: 'toph',
-		lastNane: 'beifong',
+		lastName: 'beifong',
 		email: 'toph@gmail.com',
 		password: bcrypt.hashSync('1234', 10),
 	},
