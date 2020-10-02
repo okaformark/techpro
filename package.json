@@ -1,0 +1,20 @@
+{
+	"name": "techpro",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/okaformark/techpro.git"
+	},
+	"keywords": [],
+	"author": "MARK OKAFOR",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/okaformark/techpro/issues"
+	},
+	"homepage": "https://github.com/okaformark/techpro#readme"
+}
