@@ -16,5 +16,8 @@
 	"bugs": {
 		"url": "https://github.com/okaformark/techpro/issues"
 	},
-	"homepage": "https://github.com/okaformark/techpro#readme"
+	"homepage": "https://github.com/okaformark/techpro#readme",
+	"dependencies": {
+		"dotenv": "^8.2.0"
+	}
 }
