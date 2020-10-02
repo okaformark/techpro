@@ -10,7 +10,7 @@ const HomePage = () => {
 			<Row>
 				{products.map((product) => (
 					<Col sm={12} md={6} lg={4}>
-						<Product products={product} />
+						<Product product={product} />
 					</Col>
 				))}
 			</Row>
