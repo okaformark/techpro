@@ -5,7 +5,7 @@ import Rating from '../component/Rating';
 import products from '../products';
 
 const ProductDetailsPage = ({ match }) => {
-	const product = products.find((product) => product._id == match.params.id);
+	const product = products.find((product) => product._id === match.params.id);
 	return (
 		<>
 			<Link className='btn btn-light my-3' to='/'>
