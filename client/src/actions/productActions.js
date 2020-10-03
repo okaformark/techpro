@@ -5,6 +5,7 @@ import {
 } from '../constants/productsConstants';
 import Axios from 'axios';
 
+// thunk enables us to use async here
 export const listProduct = () => async (dispatch) => {
 	try {
 		dispatch({ type: PRODUCT_LIST_REQUEST });
