@@ -8,6 +8,8 @@ import Loader from '../component/Loader';
 import Message from '../component/Message';
 
 const ProductDetailsPage = ({ match }) => {
+	const [quantity, setQuantity] = useState(0);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -70,6 +72,30 @@ const ProductDetailsPage = ({ match }) => {
 										</Col>
 									</Row>
 								</ListGroup.Item>
+								{product.countInStock > 0 && (
+									<ListGroup.Item>
+										<Row>
+											<Col>Quantity</Col>
+											<Col>
+												<Form.Control
+													as='select'
+													value={quantity}
+													onChange={(e) => {
+														setQuantity(e.target.value);
+													}}
+												>
+													{[...Array(product.countInStock).keys()].map(
+														(count) => {
+															<option key={count + 1} value={count + 1}>
+																{count + 1}
+															</option>;
+														}
+													)}
+												</Form.Control>
+											</Col>
+										</Row>
+									</ListGroup.Item>
+								)}
 								<ListGroup.Item>
 									<Button
 										className='btn-block'
