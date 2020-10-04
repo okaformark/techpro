@@ -17,7 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
 			token: null,
 		});
 	} else {
-		res.sendStatus(401);
+		res.status(401);
 		throw new Error('invalid. Not authorized');
 	}
 });
