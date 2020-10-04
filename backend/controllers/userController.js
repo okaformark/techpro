@@ -51,27 +51,34 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 
+	//if user exists
 	const user = await User.findOne({ email });
 	if (user) {
-		res.sendStatus(400);
+		res.status(400);
 		throw new Error('This user already exist');
 	}
+
+	//create new user object
 	const newUser = await User.create({
 		firstName,
 		lastName,
 		email,
 		password,
 	});
+
+	// if new user exists create and send status
 	if (newUser) {
-		res.sendStatus(201).json({
-			_id: user._id,
-			email: user.email,
-			name: user.name,
-			isAdmin: user.isAdmin,
-			token: generateToken(user._id),
+		res.status(201).json({
+			_id: newUser._id,
+			email: newUser.email,
+			firstName: newUser.firstName,
+			lastName: newUser.lastName,
+			isAdmin: newUser.isAdmin,
+			token: generateToken(newUser._id),
 		});
+		console.log();
 	} else {
-		res.sendStatus(400);
+		res.status(400);
 		throw new Error('invalid user data');
 	}
 });
