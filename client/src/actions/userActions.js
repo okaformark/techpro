@@ -1,4 +1,8 @@
-import { USER_LOGIN_REQUEST } from '../constants/userContants';
+import {
+	USER_LOGIN_FAIL,
+	USER_LOGIN_REQUEST,
+	USER_LOGIN_SUCCESS,
+} from '../constants/userContants';
 import Axios from 'axios';
 
 export const login = (email, password) => async (dispatch) => {
@@ -17,5 +21,19 @@ export const login = (email, password) => async (dispatch) => {
 			{ email, password },
 			config
 		);
-	} catch (error) {}
+
+		dispatch({
+			type: USER_LOGIN_SUCCESS,
+			payload: data,
+		});
+		localStorage.setItem('userInfo', JSON.stringify(data));
+	} catch (error) {
+		dispatch({
+			type: USER_LOGIN_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
 };
