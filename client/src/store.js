@@ -6,20 +6,28 @@ import {
 	singleProductReducer,
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
+import { userLoginReducer } from './reducers/userReducers';
 
+// on redux dev tools as state
 const reducer = combineReducers({
 	productList: productListReducer,
 	singleProduct: singleProductReducer,
 	cart: cartReducer,
+	userLogin: userLoginReducer,
 });
 
 const cartItemsFromLocalstorage = localStorage.getItem('cartItems')
 	? JSON.parse(localStorage.getItem('cartItems'))
 	: [];
 
+const userInfoFromLocalstorage = localStorage.getItem('userInfo')
+	? JSON.parse(localStorage.getItem('userInfo'))
+	: null;
+
 //getState() gets the state from here
 const initialState = {
 	cart: { cartItems: cartItemsFromLocalstorage },
+	userLogin: { userInfo: userInfoFromLocalstorage },
 };
 
 const middleware = [thunk];
