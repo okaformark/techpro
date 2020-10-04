@@ -23,8 +23,13 @@ const ProductDetailsPage = ({ history, match }) => {
 	useEffect(() => {
 		dispatch(listSingleProduct(match.params.id));
 	}, [dispatch, match.params.id]);
+
 	const singleProduct = useSelector((state) => state.singleProduct);
+
 	const { loading, error, product } = singleProduct;
+
+	console.log(product.rating);
+
 	const addToCartHandler = (product) => {
 		console.log(product);
 		history.push(`/cart/${match.params.id}?qty=${quantity}`);

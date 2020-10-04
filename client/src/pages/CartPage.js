@@ -21,7 +21,6 @@ const CartPage = ({ match, location, history }) => {
 
 	const cart = useSelector((state) => state.cart);
 	const { cartItems } = cart;
-	console.log(cartItems.countInStock);
 
 	useEffect(() => {
 		if (id) {
@@ -60,7 +59,7 @@ const CartPage = ({ match, location, history }) => {
 									<Col md={2}>
 										<Form.Control
 											as='select'
-											value={item.countInStock}
+											value={item.quantity}
 											onChange={(e) =>
 												dispatch(
 													addToCart(item.product, Number(e.target.value))

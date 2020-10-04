@@ -12,11 +12,11 @@ export const addToCart = (id, quantity) => async (dispatch, getState) => {
 			name: data.name,
 			image: data.image,
 			price: data.price,
-			countInstock: data.countInstock,
+			countInStock: data.countInStock,
 			quantity,
 		},
 	});
-	console.log(data.countInstock, 'pop');
+
 	localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
