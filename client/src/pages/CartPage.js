@@ -21,6 +21,7 @@ const CartPage = ({ match, location, history }) => {
 
 	const cart = useSelector((state) => state.cart);
 	const { cartItems } = cart;
+	console.log(cartItems.countInStock);
 
 	useEffect(() => {
 		if (id) {
@@ -53,13 +54,13 @@ const CartPage = ({ match, location, history }) => {
 										<Image src={item.image} alt={item.name} fluid rounded />
 									</Col>
 									<Col md={3}>
-										<Link to={`/prouct/${item.product}`}>{item.name}</Link>
+										<Link to={`/product/${item.product}`}>{item.name}</Link>
 									</Col>
 									<Col md={2}>${item.price}</Col>
 									<Col md={2}>
 										<Form.Control
 											as='select'
-											value={item.quantity}
+											value={item.countInStock}
 											onChange={(e) =>
 												dispatch(
 													addToCart(item.product, Number(e.target.value))

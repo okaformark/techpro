@@ -17,6 +17,7 @@ const cartItemsFromLocalstorage = localStorage.getItem('cartItems')
 	? JSON.parse(localStorage.getItem('cartItems'))
 	: [];
 
+//getState() gets the state from here
 const initialState = {
 	cart: { cartItems: cartItemsFromLocalstorage },
 };
