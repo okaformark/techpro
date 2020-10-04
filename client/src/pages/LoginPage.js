@@ -66,7 +66,7 @@ const LoginPage = ({ location, history }) => {
 	const redirect = location.search ? location.search.split('=')[1] : '/';
 
 	useEffect(() => {
-		//if user is already logged in
+		//if user is already logged in push to homepage
 		if (userInfo) {
 			history.push(redirect);
 		}
@@ -74,6 +74,7 @@ const LoginPage = ({ location, history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
+		console.log(email, password);
 		dispatch(login(email, password));
 	};
 
@@ -81,8 +82,6 @@ const LoginPage = ({ location, history }) => {
 
 	return (
 		<Container component='main' maxWidth='xs'>
-			{error && <Message variant='danger'></Message>}
-			{loading && <Loader></Loader>}
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Avatar className={`${classes.avatar} ${classes.root}`}>
@@ -92,6 +91,8 @@ const LoginPage = ({ location, history }) => {
 					Log in
 				</Typography>
 				<form className={classes.form} noValidate onSubmit={submitHandler}>
+					{error && <Message variant='danger'>{error}</Message>}
+					{loading && <Loader />}
 					<TextField
 						variant='outlined'
 						margin='normal'
@@ -116,7 +117,7 @@ const LoginPage = ({ location, history }) => {
 						id='password'
 						autoComplete='current-password'
 						defaultValue={password}
-						onChange={(e) => setPassword(e.target.password)}
+						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<FormControlLabel
 						control={<Checkbox value='remember' color='primary' />}
