@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const { throwError } = require('rxjs');
 const User = require('../models/UserModel');
 const generateToken = require('../utils/generateToken');
 
@@ -43,4 +44,36 @@ const getUserProfile = asyncHandler(async (req, res) => {
 	}
 });
 
-module.exports = { authUser, getUserProfile };
+//@desc     register new user
+//@route    POST /api/users
+//@acess    public
+
+const registerUser = asyncHandler(async (req, res) => {
+	const { firstName, lastName, email, password } = req.body;
+
+	const user = await User.findOne({ email });
+	if (user) {
+		res.sendStatus(400);
+		throw new Error('This user already exist');
+	}
+	const newUser = await User.create({
+		firstName,
+		lastName,
+		email,
+		password,
+	});
+	if (newUser) {
+		res.sendStatus(201).json({
+			_id: user._id,
+			email: user.email,
+			name: user.name,
+			isAdmin: user.isAdmin,
+			token: generateToken(user._id),
+		});
+	} else {
+		res.sendStatus(400);
+		throw new Error('invalid user data');
+	}
+});
+
+module.exports = { authUser, getUserProfile, registerUser };
