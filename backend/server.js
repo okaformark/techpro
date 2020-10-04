@@ -3,17 +3,33 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { notFound404, errorHandler } = require('./middleware/errorMiddleware');
 const productRoutes = require('./routes/productRoute');
+const usersRoute = require('./routes/usersRoute');
 
+// config. .env
 dotenv.config();
+
+//config. DB
 connectDB();
+
+//initilize express
 const app = express();
 
-app.use('/api/products', productRoutes);
+// body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// route to this url. products
+app.use('/api/products', productRoutes);
+app.use('/api/users', usersRoute);
+
+//error middleware
 app.use(notFound404);
 app.use(errorHandler);
 
+// port
 const PORT = process.env.PORT || 5000;
+
+//server
 app.listen(
 	PORT,
 	console.log(`server running on port ${PORT} in ${process.env.NODE_ENV}`)
