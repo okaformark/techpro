@@ -25,8 +25,8 @@ const ProductDetailsPage = ({ history, match }) => {
 	}, [dispatch, match.params.id]);
 	const singleProduct = useSelector((state) => state.singleProduct);
 	const { loading, error, product } = singleProduct;
-
-	const addToCartHandler = () => {
+	const addToCartHandler = (product) => {
+		console.log(product);
 		history.push(`/cart/${match.params.id}?qty=${quantity}`);
 	};
 
@@ -114,7 +114,7 @@ const ProductDetailsPage = ({ history, match }) => {
 										className='btn-block'
 										type='button'
 										disabled={product.countInStock === 0}
-										onClick={addToCartHandler}
+										onClick={() => addToCartHandler(product)}
 									>
 										ADD TO CART
 									</Button>
