@@ -23,4 +23,24 @@ const authUser = asyncHandler(async (req, res) => {
 	}
 });
 
-module.exports = authUser;
+//@desc     get auth user profile
+//@route    GET/api/users/profile
+//@access   private (authenticated users)
+const getUserProfile = asyncHandler(async (req, res) => {
+	const user = await User.findById(req.user._id);
+
+	if (user) {
+		res.json({
+			_id: user._id,
+			email: user.email,
+			name: user.name,
+			isAdmin: user.isAdmin,
+		});
+		console.log(user._id, user.email, 'lol');
+	} else {
+		res.status(404);
+		throw new Error('User not found');
+	}
+});
+
+module.exports = { authUser, getUserProfile };
