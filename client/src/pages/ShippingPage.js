@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
+import { saveShippingAddress } from '../actions/cartActions';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -39,14 +40,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ShippingPage = ({ history }) => {
-	const [address, setAddress] = useState('');
-	const [aptOrunit, setAptOrUnit] = useState('');
-	const [city, setCity] = useState('');
-	const [state, setState] = useState('');
-	const [zipCode, setZipCode] = useState('');
-	const [country, setCountry] = useState('');
+	//useSelector accesses the state/reducer from the store
+	const cart = useSelector((state) => state.cart);
+	const { shippingAddress } = cart;
 
-	const submitHandler = () => {};
+	const [address, setAddress] = useState(shippingAddress.address);
+	const [aptOrunit, setAptOrUnit] = useState(shippingAddress.aptOrunit);
+	const [city, setCity] = useState(shippingAddress.city);
+	const [state, setState] = useState(shippingAddress.state);
+	const [zipCode, setZipCode] = useState(shippingAddress.zipCode);
+	const [country, setCountry] = useState(shippingAddress.country);
+
+	//useDispatch is a hook to access redux dispatch function
+	// to dispatch the user data inputed by the user to pass into the action fucntions
+	//which then dispatches the data to the reducers
+	//initialize it like this
+	const dispatch = useDispatch();
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		//use the dispatch here
+		//pass in the function from the actions file along with the data we are sending
+		dispatch(
+			saveShippingAddress({ address, aptOrunit, city, state, zipCode, country })
+		);
+		history.push('/payment');
+	};
 
 	const classes = useStyles();
 	return (
