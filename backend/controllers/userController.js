@@ -14,7 +14,8 @@ const authUser = asyncHandler(async (req, res) => {
 		res.json({
 			_id: user._id,
 			email: user.email,
-			name: user.name,
+			firstName: user.firstName,
+			lasttName: user.lastName,
 			isAdmin: user.isAdmin,
 			token: generateToken(user._id),
 		});
@@ -37,6 +38,34 @@ const getUserProfile = asyncHandler(async (req, res) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			isAdmin: user.isAdmin,
+		});
+	} else {
+		res.status(404);
+		throw new Error('User not found');
+	}
+});
+
+//@desc		update user profile
+//@route	PUT api/users/profile
+//@access	private
+const updateUserProfile = asyncHandler(async (req, res) => {
+	const user = User.findById(req.user.id);
+
+	if (user) {
+		user.firstName = req.body.firstName || user.firstName;
+		user.lastName = req.body.lastName || user.lastName;
+		user.email = req.body.email || user.email;
+		if (req.body.password) {
+			user.password = req.body.password || user.password;
+		}
+		const updatedUser = await user.save();
+		res.json({
+			_id: updatedUser._id,
+			email: updatedUser.email,
+			firstName: updatedUser.firstName,
+			lasttName: updatedUser.lastName,
+			isAdmin: updatedUser.isAdmin,
+			token: generateToken(updatedUser._id),
 		});
 	} else {
 		res.status(404);
@@ -76,7 +105,6 @@ const registerUser = asyncHandler(async (req, res) => {
 			isAdmin: newUser.isAdmin,
 			token: generateToken(newUser._id),
 		});
-		console.log();
 	} else {
 		res.status(400);
 		throw new Error('invalid user data');
