@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	button: {
+		marginTop: theme.spacing(3),
+		marginLeft: theme.spacing(63),
+	},
 }));
 
 const ShippingPage = ({ history }) => {
@@ -143,6 +147,14 @@ const ShippingPage = ({ history }) => {
 									label='Use this address for payment details'
 								/>
 							</Grid>
+							<Button
+								variant='contained'
+								color='primary'
+								// onClick={handleNext}
+								className={`${classes.button} ${classes.root}`}
+							>
+								Next
+							</Button>
 						</Grid>
 					</form>
 				</div>
