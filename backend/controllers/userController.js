@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const { throwError } = require('rxjs');
 const User = require('../models/UserModel');
 const generateToken = require('../utils/generateToken');
 
@@ -15,7 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
 			_id: user._id,
 			email: user.email,
 			firstName: user.firstName,
-			lasttName: user.lastName,
+			lastName: user.lastName,
 			isAdmin: user.isAdmin,
 			token: generateToken(user._id),
 		});
@@ -49,7 +48,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 //@route	PUT api/users/profile
 //@access	private
 const updateUserProfile = asyncHandler(async (req, res) => {
-	const user = User.findById(req.user.id);
+	const user = await User.findById(req.user.id);
 
 	if (user) {
 		user.firstName = req.body.firstName || user.firstName;
@@ -111,4 +110,4 @@ const registerUser = asyncHandler(async (req, res) => {
 	}
 });
 
-module.exports = { authUser, getUserProfile, registerUser };
+module.exports = { authUser, getUserProfile, registerUser, updateUserProfile };
