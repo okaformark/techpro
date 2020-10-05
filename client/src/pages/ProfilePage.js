@@ -4,7 +4,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 
 const ProfilePage = ({ location, history }) => {
 	const [firstName, setFirstName] = useState('');
@@ -22,6 +22,8 @@ const ProfilePage = ({ location, history }) => {
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
+	const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+	const { success } = userUpdateProfile;
 	//const redirect = location.search ? location.search.split('=')[1] : '/';
 
 	useEffect(() => {
@@ -44,7 +46,15 @@ const ProfilePage = ({ location, history }) => {
 		if (password !== confirmPassword) {
 			setMessage('password must match');
 		} else {
-			//dispatch(register(firstName, lastName, email, password));
+			dispatch(
+				updateUserProfile({
+					id: user._id,
+					firstName,
+					lastName,
+					email,
+					password,
+				})
+			);
 		}
 	};
 
@@ -54,6 +64,7 @@ const ProfilePage = ({ location, history }) => {
 				<h2>User Profile</h2>
 				{message && <Message variant='danger'>{message}</Message>}
 				{error && <Message variant='danger'>{error}</Message>}
+				{success && <Message variant='success'>Profile Updated</Message>}
 				{loading && <Loader />}
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId='fname'>
