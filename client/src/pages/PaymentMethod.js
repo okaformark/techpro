@@ -11,8 +11,9 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
-import { saveShippingAddress } from '../actions/cartActions';
+import { savePaymentMethod } from '../actions/cartActions';
 import CheckoutStep from '../pages/CheckoutStep';
+import { Form, Col } from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -43,17 +44,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ShippingPage = ({ history }) => {
+const PaymentMethodPage = ({ history }) => {
 	//useSelector accesses the state/reducer from the store
 	const cart = useSelector((state) => state.cart);
 	const { shippingAddress } = cart;
 
-	const [address, setAddress] = useState(shippingAddress.address);
-	const [aptOrunit, setAptOrUnit] = useState(shippingAddress.aptOrunit);
-	const [city, setCity] = useState(shippingAddress.city);
-	const [state, setState] = useState(shippingAddress.state);
-	const [zipCode, setZipCode] = useState(shippingAddress.zipCode);
-	const [country, setCountry] = useState(shippingAddress.country);
+	if (!shippingAddress) {
+		history.push('/shipping');
+	}
+
+	const [paymentMethod, setPaymentMethod] = useState('');
 
 	//useDispatch is a hook to access redux dispatch function
 	// to dispatch the user data inputed by the user to pass into the action fucntions
@@ -66,10 +66,8 @@ const ShippingPage = ({ history }) => {
 		console.log('object');
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
-		dispatch(
-			saveShippingAddress({ address, aptOrunit, city, state, zipCode, country })
-		);
-		history.push('/payment');
+		dispatch(savePaymentMethod(paymentMethod));
+		history.push('/placeorder');
 	};
 
 	const classes = useStyles();
@@ -85,11 +83,35 @@ const ShippingPage = ({ history }) => {
 						Tech Pro
 					</Typography>
 					<form className={classes.form} noValidate onSubmit={submitHandler}>
-						<CheckoutStep step1 step2 />
-						<Typography variant='h6' gutterBottom>
-							Shipping address
+						<CheckoutStep step1 step2 step3 />
+						<Typography variant='h5' gutterBottom>
+							Payment Method
 						</Typography>
-						<Grid container spacing={3}>
+						<Form.Group>
+							<Form.Label as='legend'>
+								<h6>Select Method</h6>
+							</Form.Label>
+							<Col>
+								<Form.Check
+									type='radio'
+									label='Paypal or credit card'
+									id='paypal'
+									name='paymentMethod'
+									value='PayPal'
+									checked
+									onChange={(e) => setPaymentMethod(e.target.value)}
+								></Form.Check>
+								<Form.Check
+									type='radio'
+									label='Stripe'
+									id='stripe'
+									name='paymentMethod'
+									value='Stripe'
+									onChange={(e) => setPaymentMethod(e.target.value)}
+								></Form.Check>
+							</Col>
+						</Form.Group>
+						{/* <Grid container spacing={3}>
 							<Grid item xs={12}>
 								<TextField
 									required
@@ -171,16 +193,16 @@ const ShippingPage = ({ history }) => {
 									}
 									label='Use this address for payment details'
 								/>
-							</Grid>
-							<Button
-								variant='contained'
-								color='primary'
-								type='submit'
-								className={`${classes.button} ${classes.root}`}
-							>
-								Next
-							</Button>
-						</Grid>
+							</Grid> */}
+						<Button
+							type='submit'
+							variant='contained'
+							color='primary'
+							className={`${classes.button} ${classes.root}`}
+						>
+							Next
+						</Button>
+						{/* </Grid> */}
 					</form>
 				</div>
 			</Container>
@@ -188,4 +210,4 @@ const ShippingPage = ({ history }) => {
 	);
 };
 
-export default ShippingPage;
+export default PaymentMethodPage;
