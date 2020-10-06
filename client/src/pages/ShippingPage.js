@@ -12,6 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
 import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutStep from '../pages/CheckoutStep';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
 	button: {
 		marginTop: theme.spacing(3),
 		marginLeft: theme.spacing(63),
+	},
+	stepper: {
+		padding: theme.spacing(3, 0, 5),
 	},
 }));
 
@@ -80,6 +84,7 @@ const ShippingPage = ({ history }) => {
 						Tech Pro
 					</Typography>
 					<form className={classes.form} noValidate onSubmit={submitHandler}>
+						<CheckoutStep step1 step2 />
 						<Typography variant='h6' gutterBottom>
 							Shipping address
 						</Typography>
