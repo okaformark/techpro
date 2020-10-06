@@ -14,6 +14,9 @@ import {
 } from './reducers/userReducers';
 
 // on redux dev tools as state
+//combineReducers helper function turns an object whose values are different reducing functions into a single reducing function..
+//you can pass to createStore.
+// puts all the return values(action types and payloads) of all your reducers in to one big object
 const reducer = combineReducers({
 	productList: productListReducer,
 	singleProduct: singleProductReducer,
@@ -32,9 +35,16 @@ const userInfoFromLocalstorage = localStorage.getItem('userInfo')
 	? JSON.parse(localStorage.getItem('userInfo'))
 	: null;
 
+const shippingAddressFromLocalstorage = localStorage.getItem('shippingAddress')
+	? JSON.parse(localStorage.getItem('shippingAddress'))
+	: {};
+
 //getState() gets the state from here
 const initialState = {
-	cart: { cartItems: cartItemsFromLocalstorage },
+	cart: {
+		cartItems: cartItemsFromLocalstorage,
+		shippingAddress: shippingAddressFromLocalstorage,
+	},
 	userLogin: { userInfo: userInfoFromLocalstorage },
 };
 
