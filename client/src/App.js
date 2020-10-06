@@ -11,6 +11,7 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentMethodPage from './pages/PaymentMethod';
+import PlaceOrderPage from './pages/PlaceOrderPage';
 
 const App = () => {
 	return (
@@ -20,6 +21,7 @@ const App = () => {
 				<Container>
 					<Route path='/payment' component={PaymentMethodPage} />
 					<Route path='/shipping' component={ShippingPage} />
+					<Route path='/placeorder' component={PlaceOrderPage} />
 					<Route path='/register' component={RegisterPage} />
 					<Route path='/login' component={LoginPage} />
 					<Route path='/profile' component={ProfilePage} />
