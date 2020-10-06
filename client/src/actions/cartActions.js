@@ -2,8 +2,9 @@ import Axios from 'axios';
 import {
 	ADD_ITEM_CART,
 	CART_SAVE_SHIPPING_ADDRESS,
+	REMOVE_ITEM_CART,
+	CART_SAVE_PAYMENT_METHOD,
 } from '../constants/cartConstants';
-import { REMOVE_ITEM_CART } from '../constants/cartConstants';
 
 //The action functions returns or dispatch adn object containing type and payload {type:'', payload: ''}
 // here we write functions that interact with the database according to defined actions
@@ -47,4 +48,12 @@ export const saveShippingAddress = (formData) => async (dispatch) => {
 		payload: formData,
 	});
 	localStorage.setItem('shippingAddress', JSON.stringify(formData));
+};
+
+export const savePaymentMethod = (paymentData) => async (dispatch) => {
+	dispatch({
+		type: CART_SAVE_PAYMENT_METHOD,
+		payload: paymentData,
+	});
+	localStorage.setItem('paymentMethod', JSON.stringify(paymentData));
 };

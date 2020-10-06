@@ -1,5 +1,6 @@
 import {
 	ADD_ITEM_CART,
+	CART_SAVE_PAYMENT_METHOD,
 	CART_SAVE_SHIPPING_ADDRESS,
 	REMOVE_ITEM_CART,
 } from '../constants/cartConstants';
@@ -12,7 +13,7 @@ import {
 // ususlly the reducer takes in receives paramater like id as a payload so it can perform said fucntions described above.
 // saves the payload returned from the actions files into state
 export const cartReducer = (
-	state = { cartItems: [], shippingAddress: {} },
+	state = { cartItems: [], shippingAddress: {}, paymentMethod: {} },
 	action
 ) => {
 	switch (action.type) {
@@ -50,7 +51,11 @@ export const cartReducer = (
 				...state,
 				shippingAddress: action.payload,
 			};
-
+		case CART_SAVE_PAYMENT_METHOD:
+			return {
+				...state,
+				paymentMethod: action.payload,
+			};
 		default:
 			return state;
 	}
