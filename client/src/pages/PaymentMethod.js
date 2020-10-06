@@ -63,6 +63,7 @@ const PaymentMethodPage = ({ history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
+		console.log('object');
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
 		dispatch(savePaymentMethod(paymentMethod));
@@ -194,6 +195,7 @@ const PaymentMethodPage = ({ history }) => {
 								/>
 							</Grid> */}
 						<Button
+							type='submit'
 							variant='contained'
 							color='primary'
 							className={`${classes.button} ${classes.root}`}

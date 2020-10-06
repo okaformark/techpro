@@ -63,6 +63,7 @@ const ShippingPage = ({ history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
+		console.log('object');
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
 		dispatch(
@@ -174,7 +175,7 @@ const ShippingPage = ({ history }) => {
 							<Button
 								variant='contained'
 								color='primary'
-								// onClick={handleNext}
+								type='submit'
 								className={`${classes.button} ${classes.root}`}
 							>
 								Next
