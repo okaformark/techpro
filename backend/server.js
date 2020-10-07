@@ -4,6 +4,7 @@ const connectDB = require('./config/db');
 const { notFound404, errorHandler } = require('./middleware/errorMiddleware');
 const productRoutes = require('./routes/productRoute');
 const usersRoute = require('./routes/usersRoute');
+const ordersRoute = require('./routes/orderRoute');
 
 // config. .env
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // route to this url. products
 app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoute);
+app.use('/api/orders', orderRoutes);
 
 //error middleware
 app.use(notFound404);
