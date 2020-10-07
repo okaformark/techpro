@@ -37,12 +37,15 @@ const PlaceOrderPage = ({ history }) => {
 	// grabs the response data from the post request to the server from the store
 	const orderCreate = useSelector((state) => state.orderCreate);
 	const { order, success, error } = orderCreate;
-	console.log(order);
+	console.log(success);
 
 	useEffect(() => {
-		if (success) {
-			history.push(`/order/${order._id}`);
-		}
+		const pushToOrderpage = async () => {
+			if (success && order) {
+				await history.push(`/order/${order._id}`);
+			}
+		};
+		pushToOrderpage();
 		// eslint-disable-next-line
 	}, [history, success]);
 
