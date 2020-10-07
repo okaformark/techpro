@@ -63,7 +63,7 @@ const PaymentMethodPage = ({ history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('object');
+		console.log(paymentMethod);
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
 		dispatch(savePaymentMethod(paymentMethod));
@@ -98,7 +98,6 @@ const PaymentMethodPage = ({ history }) => {
 									id='paypal'
 									name='paymentMethod'
 									value='PayPal'
-									checked
 									onChange={(e) => setPaymentMethod(e.target.value)}
 								></Form.Check>
 								<Form.Check

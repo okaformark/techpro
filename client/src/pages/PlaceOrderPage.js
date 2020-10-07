@@ -37,11 +37,13 @@ const PlaceOrderPage = ({ history }) => {
 	// grabs the response data from the post request to the server from the store
 	const orderCreate = useSelector((state) => state.orderCreate);
 	const { order, success, error } = orderCreate;
+	console.log(order);
 
 	useEffect(() => {
 		if (success) {
-			history.pushState(`/order/${order._id}`);
+			history.push(`/order/${order._id}`);
 		}
+		// eslint-disable-next-line
 	}, [history, success]);
 
 	const placeorderHandler = () => {
@@ -142,6 +144,9 @@ const PlaceOrderPage = ({ history }) => {
 									<Col>Total</Col>
 									<Col>${cart.totalPrice}</Col>
 								</Row>
+							</ListGroup.Item>
+							<ListGroup.Item>
+								{error && <Message variant='danger'>{error}</Message>}
 							</ListGroup.Item>
 							<ListGroup.Item>
 								<Button

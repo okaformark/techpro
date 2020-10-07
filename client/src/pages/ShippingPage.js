@@ -63,7 +63,7 @@ const ShippingPage = ({ history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('object');
+		console.log({ address, aptOrunit, city, state, zipCode, country });
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
 		dispatch(
