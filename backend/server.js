@@ -16,8 +16,8 @@ connectDB();
 const app = express();
 
 // body parser middleware
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // route to this url. products
 app.use('/api/products', productRoutes);
