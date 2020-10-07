@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import CheckoutStep from '../pages/CheckoutStep';
+import { createOrder } from '../actions/orderActions';
 
-const PlaceOrderPage = () => {
+const PlaceOrderPage = ({ history }) => {
+	const dispatch = useDispatch();
+
 	const cart = useSelector((state) => state.cart);
 	const { shippingAddress } = cart;
 
@@ -31,8 +34,28 @@ const PlaceOrderPage = () => {
 		Number(cart.taxPrice)
 	).toFixed(2);
 
+	// grabs the response data from the post request to the server from the store
+	const orderCreate = useSelector((state) => state.orderCreate);
+	const { order, success, error } = orderCreate;
+
+	useEffect(() => {
+		if (success) {
+			history.pushState(`/order/${order._id}`);
+		}
+	}, [history, success]);
+
 	const placeorderHandler = () => {
-		console.log('aaaa');
+		dispatch(
+			createOrder({
+				orderItems: cart.cartItems,
+				shippingAddress: cart.shippingAddress,
+				paymentMethod: cart.paymentMethod,
+				itemsPrice: cart.itemsPrice,
+				shippingPrice: cart.shippingPrice,
+				taxPrice: cart.taxPrice,
+				totalPrice: cart.totalPrice,
+			})
+		);
 	};
 
 	return (

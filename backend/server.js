@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // route to this url. products
 app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoute);
-app.use('/api/orders', orderRoutes);
+app.use('/api/orders', ordersRoute);
 
 //error middleware
 app.use(notFound404);
