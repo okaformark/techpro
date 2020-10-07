@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,11 +37,11 @@ const PlaceOrderPage = ({ history }) => {
 	// grabs the response data from the post request to the server from the store
 	const orderCreate = useSelector((state) => state.orderCreate);
 	const { order, success, error } = orderCreate;
-	console.log(success);
+	console.log(order);
 
 	useEffect(() => {
 		const pushToOrderpage = async () => {
-			if (success && order) {
+			if (success) {
 				await history.push(`/order/${order._id}`);
 			}
 		};
