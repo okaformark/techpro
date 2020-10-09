@@ -19,7 +19,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// route to this url. products
+// route to this url
 app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoute);
 app.use('/api/orders', ordersRoute);

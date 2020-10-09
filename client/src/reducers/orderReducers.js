@@ -9,6 +9,7 @@ export const orderCreateReducer = (state = {}, action) => {
 		case ORDERS_CREATE_REQUEST:
 			return {
 				loading: true,
+				//success: false,
 			};
 		case ORDERS_CREATE_SUCCESS:
 			return {
@@ -20,11 +21,10 @@ export const orderCreateReducer = (state = {}, action) => {
 			return {
 				loading: false,
 				error: action.payload,
+				//success: false,
 			};
 
 		default:
-			return {
-				state,
-			};
+			return state;
 	}
 };

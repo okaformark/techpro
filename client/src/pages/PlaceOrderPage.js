@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,10 +7,16 @@ import CheckoutStep from '../pages/CheckoutStep';
 import { createOrder } from '../actions/orderActions';
 
 const PlaceOrderPage = ({ history }) => {
-	const dispatch = useDispatch();
+	// grabs the response data from the post request to the server from the store
+	const orderCreate = useSelector((state) => state && state.orderCreate);
+	const { error, order, success } = orderCreate;
+	console.log(order);
 
+	// grabs the response from the store
 	const cart = useSelector((state) => state.cart);
 	const { shippingAddress } = cart;
+
+	const dispatch = useDispatch();
 
 	// gives two decimals
 	const addDecimals = (num) => {
@@ -34,22 +40,15 @@ const PlaceOrderPage = ({ history }) => {
 		Number(cart.taxPrice)
 	).toFixed(2);
 
-	// grabs the response data from the post request to the server from the store
-	const orderCreate = useSelector((state) => state.orderCreate);
-	const { order, success, error } = orderCreate;
-	console.log(order);
-
 	useEffect(() => {
-		const pushToOrderpage = async () => {
-			if (success) {
-				await history.push(`/order/${order._id}`);
-			}
-		};
-		pushToOrderpage();
+		if (success) {
+			console.log(order, 'kkkkk');
+			history.push(`/order/${order._id}`);
+		}
 		// eslint-disable-next-line
 	}, [history, success]);
 
-	const placeorderHandler = () => {
+	const placeOrderHandler = () => {
 		dispatch(
 			createOrder({
 				orderItems: cart.cartItems,
@@ -62,7 +61,6 @@ const PlaceOrderPage = ({ history }) => {
 			})
 		);
 	};
-
 	return (
 		<>
 			<CheckoutStep step1 step2 step3 step4 />
@@ -156,7 +154,7 @@ const PlaceOrderPage = ({ history }) => {
 									type='button'
 									className='btn-block'
 									disabled={cart.cartItems === 0}
-									onClick={placeorderHandler}
+									onClick={placeOrderHandler}
 								>
 									Place Order
 								</Button>
