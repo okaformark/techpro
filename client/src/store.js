@@ -12,7 +12,10 @@ import {
 	userDetailsReducer,
 	userUpdateProfileReducer,
 } from './reducers/userReducers';
-import { orderCreateReducer } from './reducers/orderReducers';
+import {
+	orderCreateReducer,
+	orderDetailsReducer,
+} from './reducers/orderReducers';
 
 // on redux dev tools as state
 //combineReducers helper function turns an object whose values are different reducing functions into a single reducing function..
@@ -27,6 +30,7 @@ const reducer = combineReducers({
 	userDetails: userDetailsReducer,
 	userUpdateProfile: userUpdateProfileReducer,
 	orderCreate: orderCreateReducer,
+	orderDetails: orderDetailsReducer,
 });
 
 const cartItemsFromLocalstorage = localStorage.getItem('cartItems')
