@@ -32,7 +32,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
 		const createOrder = await order.save();
 		console.log(createOrder);
-		res.status(201).json({ createOrder });
+		res.status(201).json(createOrder);
 	}
 });
 
@@ -46,7 +46,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 		'firstName lastName, email'
 	);
 	if (order) {
-		res.json({ order });
+		res.json(order);
 	} else {
 		res.status(404);
 		throw new Error('Order not found');

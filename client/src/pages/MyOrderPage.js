@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
 import { getOrderDetails } from '../actions/orderActions';
 
-const OrderPage = ({ match }) => {
+const MyOrderPage = ({ match }) => {
 	const orderId = match.params.id;
 
 	const orderDetails = useSelector((state) => state.orderDetails);
@@ -16,7 +16,7 @@ const OrderPage = ({ match }) => {
 
 	useEffect(() => {
 		dispatch(getOrderDetails(orderId));
-	}, [history, success]);
+	}, [dispatch, orderId]);
 
 	return loading ? (
 		<Loader />
@@ -54,20 +54,20 @@ const OrderPage = ({ match }) => {
 											<Row>
 												<Col md={2}>
 													<Image
-														src={order.image}
-														alt={order.name}
+														src={item.image}
+														alt={item.name}
 														fluid
 														rounded
 													/>
 												</Col>
 												<Col>
-													<Link to={`/product/${order.product}`}>
-														{order.name}
+													<Link to={`/product/${item.product}`}>
+														{item.name}
 													</Link>
 												</Col>
 												<Col md={4}>
-													{order.quantity} x ${order.price} = $
-													{(order.quantity * order.price).toFixed(2)}
+													{item.quantity} x ${item.price} = $
+													{(item.quantity * item.price).toFixed(2)}
 												</Col>
 											</Row>
 										</ListGroup.Item>
@@ -120,4 +120,4 @@ const OrderPage = ({ match }) => {
 	);
 };
 
-export default OrderPage;
+export default MyOrderPage;

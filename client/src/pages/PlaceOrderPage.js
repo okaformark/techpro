@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,16 +7,11 @@ import CheckoutStep from '../pages/CheckoutStep';
 import { createOrder } from '../actions/orderActions';
 
 const PlaceOrderPage = ({ history }) => {
-	// grabs the response data from the post request to the server from the store
-	const orderCreate = useSelector((state) => state && state.orderCreate);
-	const { error, order, success } = orderCreate;
-	console.log(order);
+	const dispatch = useDispatch();
 
 	// grabs the response from the store
 	const cart = useSelector((state) => state.cart);
 	const { shippingAddress } = cart;
-
-	const dispatch = useDispatch();
 
 	// gives two decimals
 	const addDecimals = (num) => {
@@ -40,13 +35,20 @@ const PlaceOrderPage = ({ history }) => {
 		Number(cart.taxPrice)
 	).toFixed(2);
 
+	//grabs the response data from the post request to the server from the store
+	const orderCreate = useSelector((state) => state.orderCreate);
+	const { error, success, order } = orderCreate;
+
+	//const [orderState, setOrderState] = useState({});
+	console.log(order);
+
 	useEffect(() => {
 		if (success) {
-			console.log(order, 'kkkkk');
+			console.log(order);
 			history.push(`/order/${order._id}`);
 		}
 		// eslint-disable-next-line
-	}, [history, success]);
+	}, [success]);
 
 	const placeOrderHandler = () => {
 		dispatch(

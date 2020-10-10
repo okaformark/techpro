@@ -49,7 +49,7 @@ const PaymentMethodPage = ({ history }) => {
 		history.push('/shipping');
 	}
 
-	const [paymentMethod, setPaymentMethod] = useState('');
+	const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
 	//useDispatch is a hook to access redux dispatch function
 	// to dispatch the user data inputed by the user to pass into the action fucntions
@@ -94,6 +94,7 @@ const PaymentMethodPage = ({ history }) => {
 									id='paypal'
 									name='paymentMethod'
 									value='PayPal'
+									checked
 									onChange={(e) => setPaymentMethod(e.target.value)}
 								></Form.Check>
 								<Form.Check
@@ -106,89 +107,6 @@ const PaymentMethodPage = ({ history }) => {
 								></Form.Check>
 							</Col>
 						</Form.Group>
-						{/* <Grid container spacing={3}>
-							<Grid item xs={12}>
-								<TextField
-									required
-									id='address1'
-									name='address1'
-									label='Address line 1'
-									fullWidth
-									autoComplete='shipping address-line1'
-									defaultValue={address}
-									onChange={(e) => setAddress(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									id='aptOrUnit'
-									name='aptOrUnit'
-									label='Apt or Unit No'
-									fullWidth
-									autoComplete='shipping address-line2'
-									defaultValue={aptOrunit}
-									onChange={(e) => setAptOrUnit(e.target.value)}
-								/>
-							</Grid>
-
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									id='city'
-									name='city'
-									label='City'
-									fullWidth
-									autoComplete='shipping address-level2'
-									defaultValue={city}
-									onChange={(e) => setCity(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									id='state'
-									name='state'
-									label='State/Province/Region'
-									fullWidth
-									defaultValue={state}
-									onChange={(e) => setState(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									id='zip'
-									name='zip'
-									label='Zip / Postal code'
-									fullWidth
-									autoComplete='shipping postal-code'
-									defaultValue={zipCode}
-									onChange={(e) => setZipCode(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									id='country'
-									name='country'
-									label='Country'
-									fullWidth
-									autoComplete='shipping country'
-									defaultValue={country}
-									onChange={(e) => setCountry(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<FormControlLabel
-									control={
-										<Checkbox
-											color='secondary'
-											name='saveAddress'
-											value='yes'
-										/>
-									}
-									label='Use this address for payment details'
-								/>
-							</Grid> */}
 						<Button
 							type='submit'
 							variant='contained'
@@ -197,7 +115,6 @@ const PaymentMethodPage = ({ history }) => {
 						>
 							Next
 						</Button>
-						{/* </Grid> */}
 					</form>
 				</div>
 			</Container>

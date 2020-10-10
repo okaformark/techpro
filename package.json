@@ -31,5 +31,8 @@
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.10.7",
 		"nodemon": "^2.0.4"
+	},
+	"devDependencies": {
+		"case-sensitive-paths-webpack-plugin": "^2.3.0"
 	}
 }

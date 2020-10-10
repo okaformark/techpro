@@ -24,7 +24,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 				Authorization: `Bearer ${userInfo.token}`,
 			},
 		};
-		const { data } = await Axios.post(`api/orders`, order, config);
+		const { data } = await Axios.post(`/api/orders`, order, config);
 		console.log(data, 'popop');
 
 		dispatch({
@@ -57,7 +57,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 				Authorization: `Bearer ${userInfo.token}`,
 			},
 		};
-		const { data } = await Axios.get(`api/orders/${id}`, config);
+		const { data } = await Axios.get(`/api/orders/${id}`, config);
 		console.log(data, 'popop');
 
 		dispatch({

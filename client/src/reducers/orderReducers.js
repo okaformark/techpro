@@ -7,12 +7,11 @@ import {
 	ORDERS_DETAILS_FAIL,
 } from '../constants/orderConstants';
 
-export const orderCreateReducer = (state = { success: true }, action) => {
+export const orderCreateReducer = (state = {}, action) => {
 	switch (action.type) {
 		case ORDERS_CREATE_REQUEST:
 			return {
 				loading: true,
-				//success: false,
 			};
 		case ORDERS_CREATE_SUCCESS:
 			return {
@@ -24,7 +23,6 @@ export const orderCreateReducer = (state = { success: true }, action) => {
 			return {
 				loading: false,
 				error: action.payload,
-				//success: false,
 			};
 
 		default:
