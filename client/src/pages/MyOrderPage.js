@@ -108,9 +108,6 @@ const MyOrderPage = ({ match }) => {
 									<Col>${order.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item>
-								{error && <Message variant='danger'>{error}</Message>}
-							</ListGroup.Item>
 							<ListGroup.Item></ListGroup.Item>
 						</ListGroup>
 					</Card>
