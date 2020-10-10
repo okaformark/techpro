@@ -25,7 +25,7 @@ const OrderSchema = mongoose.Schema(
 			aptOrUnit: { type: String },
 			city: { type: String, required: true },
 			state: { type: String, required: true },
-			zipcode: { type: String, required: true },
+			zipCode: { type: Number, required: true },
 			country: { type: String, required: true },
 		},
 		paymentMethod: {

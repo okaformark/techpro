@@ -63,7 +63,7 @@ const ShippingPage = ({ history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('object');
+		console.log({ address, aptOrunit, city, state, zipCode, country });
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
 		dispatch(
@@ -92,7 +92,7 @@ const ShippingPage = ({ history }) => {
 						<Grid container spacing={3}>
 							<Grid item xs={12}>
 								<TextField
-									required
+									required={true}
 									id='address1'
 									name='address1'
 									label='Address line 1'
@@ -104,6 +104,7 @@ const ShippingPage = ({ history }) => {
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
+									required={true}
 									id='aptOrUnit'
 									name='aptOrUnit'
 									label='Apt or Unit No'
@@ -116,7 +117,7 @@ const ShippingPage = ({ history }) => {
 
 							<Grid item xs={12} sm={6}>
 								<TextField
-									required
+									required={true}
 									id='city'
 									name='city'
 									label='City'
@@ -128,6 +129,7 @@ const ShippingPage = ({ history }) => {
 							</Grid>
 							<Grid item xs={12} sm={6}>
 								<TextField
+									required={true}
 									id='state'
 									name='state'
 									label='State/Province/Region'
@@ -138,7 +140,7 @@ const ShippingPage = ({ history }) => {
 							</Grid>
 							<Grid item xs={12} sm={6}>
 								<TextField
-									required
+									required={true}
 									id='zip'
 									name='zip'
 									label='Zip / Postal code'
@@ -150,7 +152,7 @@ const ShippingPage = ({ history }) => {
 							</Grid>
 							<Grid item xs={12} sm={6}>
 								<TextField
-									required
+									required={true}
 									id='country'
 									name='country'
 									label='Country'

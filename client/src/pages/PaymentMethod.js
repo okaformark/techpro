@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -53,7 +49,7 @@ const PaymentMethodPage = ({ history }) => {
 		history.push('/shipping');
 	}
 
-	const [paymentMethod, setPaymentMethod] = useState('');
+	const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
 	//useDispatch is a hook to access redux dispatch function
 	// to dispatch the user data inputed by the user to pass into the action fucntions
@@ -63,7 +59,7 @@ const PaymentMethodPage = ({ history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('object');
+		console.log(paymentMethod);
 		//use the dispatch here
 		//pass in the function from the actions file along with the data we are sending
 		dispatch(savePaymentMethod(paymentMethod));
@@ -111,89 +107,6 @@ const PaymentMethodPage = ({ history }) => {
 								></Form.Check>
 							</Col>
 						</Form.Group>
-						{/* <Grid container spacing={3}>
-							<Grid item xs={12}>
-								<TextField
-									required
-									id='address1'
-									name='address1'
-									label='Address line 1'
-									fullWidth
-									autoComplete='shipping address-line1'
-									defaultValue={address}
-									onChange={(e) => setAddress(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									id='aptOrUnit'
-									name='aptOrUnit'
-									label='Apt or Unit No'
-									fullWidth
-									autoComplete='shipping address-line2'
-									defaultValue={aptOrunit}
-									onChange={(e) => setAptOrUnit(e.target.value)}
-								/>
-							</Grid>
-
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									id='city'
-									name='city'
-									label='City'
-									fullWidth
-									autoComplete='shipping address-level2'
-									defaultValue={city}
-									onChange={(e) => setCity(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									id='state'
-									name='state'
-									label='State/Province/Region'
-									fullWidth
-									defaultValue={state}
-									onChange={(e) => setState(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									id='zip'
-									name='zip'
-									label='Zip / Postal code'
-									fullWidth
-									autoComplete='shipping postal-code'
-									defaultValue={zipCode}
-									onChange={(e) => setZipCode(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									id='country'
-									name='country'
-									label='Country'
-									fullWidth
-									autoComplete='shipping country'
-									defaultValue={country}
-									onChange={(e) => setCountry(e.target.value)}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<FormControlLabel
-									control={
-										<Checkbox
-											color='secondary'
-											name='saveAddress'
-											value='yes'
-										/>
-									}
-									label='Use this address for payment details'
-								/>
-							</Grid> */}
 						<Button
 							type='submit'
 							variant='contained'
@@ -202,7 +115,6 @@ const PaymentMethodPage = ({ history }) => {
 						>
 							Next
 						</Button>
-						{/* </Grid> */}
 					</form>
 				</div>
 			</Container>
