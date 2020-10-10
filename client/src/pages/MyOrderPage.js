@@ -31,6 +31,15 @@ const MyOrderPage = ({ match }) => {
 						<ListGroup.Item>
 							<h2>Shipping</h2>
 							<p>
+								<strong>Name: </strong>
+								{order.user.firstName} {order.user.lastName}
+							</p>
+
+							<p>
+								<strong>Email: </strong>
+								<a href={`mail to: ${order.user.email}`}>{order.user.email}</a>
+							</p>
+							<p>
 								<strong>Address:</strong>
 								{order.shippingAddress.address}{' '}
 								{order.shippingAddress.aptOrUnit},{order.shippingAddress.city}{' '}
@@ -86,7 +95,7 @@ const MyOrderPage = ({ match }) => {
 							<ListGroup.Item>
 								<Row>
 									<Col>Items</Col>
-									<Col>${order.itemsPrice}</Col>
+									<Col>${order.orderItems.itemsPrice}</Col>
 								</Row>
 							</ListGroup.Item>
 							<ListGroup.Item>
