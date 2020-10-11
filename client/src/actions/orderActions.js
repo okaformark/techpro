@@ -108,11 +108,6 @@ export const payOrder = (orderId, paymentResult) => async (
 			type: ORDERS_PAY_SUCCESS,
 			payload: data,
 		});
-
-		dispatch({
-			type: ORDERS_PAY_RESET,
-			payload: {},
-		});
 	} catch (error) {
 		dispatch({
 			type: ORDERS_PAY_FAIL,
