@@ -14,9 +14,26 @@ const MyOrderPage = ({ match }) => {
 
 	const dispatch = useDispatch();
 
+	if (!loading) {
+		// gives two decimals
+		const addDecimals = (num) => {
+			return (Math.round(num * 100) / 100).toFixed(2);
+		};
+
+		order.itemsPrice = addDecimals(
+			order.orderItems.reduce(
+				(acc, currItem) => acc + currItem.price * currItem.quantity,
+				0
+			)
+		);
+		order.shippingPrice = addDecimals(order.itemsPrice > 100 ? 10 : 5);
+	}
+
 	useEffect(() => {
-		dispatch(getOrderDetails(orderId));
-	}, [dispatch, orderId]);
+		if (!order || order._id !== orderId) {
+			dispatch(getOrderDetails(orderId));
+		}
+	}, [order, orderId]);
 
 	return loading ? (
 		<Loader />
@@ -31,17 +48,40 @@ const MyOrderPage = ({ match }) => {
 						<ListGroup.Item>
 							<h2>Shipping</h2>
 							<p>
+								<strong>Name: </strong>
+								{order.user.firstName} {order.user.lastName}
+							</p>
+
+							<p>
+								<strong>Email: </strong>
+								<a href={`mail to: ${order.user.email}`}>{order.user.email}</a>
+							</p>
+							<p>
 								<strong>Address:</strong>
 								{order.shippingAddress.address}{' '}
 								{order.shippingAddress.aptOrUnit},{order.shippingAddress.city}{' '}
 								{order.shippingAddress.state}, {order.shippingAddress.zipCode},
 								{order.shippingAddress.country}
 							</p>
+							{order.isDelivered ? (
+								<Message variant='success'>
+									Delivered on {order.deliveredAt}
+								</Message>
+							) : (
+								<Message variant='danger'>Not Delivered</Message>
+							)}
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<h2>Payment Method</h2>
-							<strong>Method: </strong>
-							{order.paymentMethod}
+							<p>
+								<strong>Method: </strong>
+								{order.paymentMethod}
+							</p>
+							{order.isPaid ? (
+								<Message variant='success'>Paid on {order.paidAt}</Message>
+							) : (
+								<Message variant='danger'>Not Paid</Message>
+							)}
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<h2>Order Items</h2>
@@ -108,10 +148,6 @@ const MyOrderPage = ({ match }) => {
 									<Col>${order.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item>
-								{error && <Message variant='danger'>{error}</Message>}
-							</ListGroup.Item>
-							<ListGroup.Item></ListGroup.Item>
 						</ListGroup>
 					</Card>
 				</Col>
