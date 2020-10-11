@@ -148,7 +148,6 @@ const MyOrderPage = ({ match }) => {
 									<Col>${order.totalPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item></ListGroup.Item>
 						</ListGroup>
 					</Card>
 				</Col>
