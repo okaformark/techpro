@@ -58,20 +58,42 @@ const getOrderById = asyncHandler(async (req, res) => {
 const updatePaidStatus = asyncHandler(async (req, res) => {
 	const order = await Order.findById(req.params.id);
 	if (order) {
-		(order.isPaid = true),
-			(order.paidAt = Date.now()),
-			(order.paymentResult = {
-				id: req.body.id,
-				status: req.body.status,
-				update_time: req.body.update_time,
-				email_address: req.body.payer.email_address,
-			});
+		order.isPaid = true;
+		order.paidAt = Date.now();
+		order.paymentResult = {
+			id: req.body.id,
+			status: req.body.status,
+			update_time: req.body.update_time,
+			email_address: req.body.payer.email_address,
+		};
 		const updatedOrder = await order.save();
+		console.log(updatedOrder, '444');
 		res.json(updatedOrder);
 	} else {
 		res.status(404);
 		throw new Error('Payment failed');
 	}
+	// await Order.findByIdAndUpdate(
+	// 	req.params.id,
+	// 	{
+	// 		isPaid: true,
+	// 		paidAt: Date.now(),
+	// 		paymentResult: {
+	// 			id: req.body.id,
+	// 			status: req.body.status,
+	// 			update_time: req.body.update_time,
+	// 			email_address: req.body.payer.email_address,
+	// 		},
+	// 	},
+	// 	(err, order) => {
+	// 		if (err) {
+	// 			res.status(404);
+	// 			throw new Error('Payment failed');
+	// 		} else {
+	// 			res.json(order);
+	// 		}
+	// 	}
+	// );
 });
 
 module.exports = { addOrderItems, getOrderById, updatePaidStatus };

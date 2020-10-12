@@ -94,6 +94,7 @@ export const payOrder = (orderId, paymentResult) => async (
 
 		const config = {
 			headers: {
+				'Content-Type': 'application/json',
 				Authorization: `Bearer ${userInfo.token}`,
 			},
 		};
