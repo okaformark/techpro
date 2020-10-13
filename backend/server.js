@@ -24,6 +24,10 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoute);
 app.use('/api/orders', ordersRoute);
 
+app.get('/api/config/paypal', (req, res) =>
+	res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
 //error middleware
 app.use(notFound404);
 app.use(errorHandler);
