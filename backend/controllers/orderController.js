@@ -73,27 +73,19 @@ const updatePaidStatus = asyncHandler(async (req, res) => {
 		res.status(404);
 		throw new Error('Payment failed');
 	}
-	// await Order.findByIdAndUpdate(
-	// 	req.params.id,
-	// 	{
-	// 		isPaid: true,
-	// 		paidAt: Date.now(),
-	// 		paymentResult: {
-	// 			id: req.body.id,
-	// 			status: req.body.status,
-	// 			update_time: req.body.update_time,
-	// 			email_address: req.body.payer.email_address,
-	// 		},
-	// 	},
-	// 	(err, order) => {
-	// 		if (err) {
-	// 			res.status(404);
-	// 			throw new Error('Payment failed');
-	// 		} else {
-	// 			res.json(order);
-	// 		}
-	// 	}
-	// );
 });
 
-module.exports = { addOrderItems, getOrderById, updatePaidStatus };
+//@desc		get loggedin user order
+//@route	GET /api/orders/myorders
+//@access	private
+const getUserOrders = asyncHandler(async (req, res) => {
+	const orders = await Order.find({ user: req.user._id });
+	res.json(orders);
+	console.log(orders, '<<<<<<<<<');
+});
+module.exports = {
+	addOrderItems,
+	getOrderById,
+	updatePaidStatus,
+	getUserOrders,
+};

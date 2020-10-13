@@ -12,6 +12,7 @@ import {
 	ORDERS_LOGGED_IN_USERS_REQUEST,
 	ORDERS_LOGGED_IN_USERS_SUCCESS,
 	ORDERS_LOGGED_IN_USERS_FAIL,
+	ORDERS_LOGGED_IN_USERS_RESET,
 } from '../constants/orderConstants';
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -102,6 +103,10 @@ export const orderLoggedInUserReducer = (state = { orders: [] }, action) => {
 			return {
 				loading: false,
 				error: action.payload,
+			};
+		case ORDERS_LOGGED_IN_USERS_RESET:
+			return {
+				orders: [],
 			};
 		default:
 			return state;
