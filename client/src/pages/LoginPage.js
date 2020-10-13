@@ -142,7 +142,7 @@ const LoginPage = ({ location, history }) => {
 								to={redirect ? `/register ? redirect=${redirect}` : '/register'}
 								variant='body2'
 							>
-								{"Don't have an account? Sign Up"}
+								Don't have an account? Sign Up
 							</Link>
 						</Grid>
 					</Grid>

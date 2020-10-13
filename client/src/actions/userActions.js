@@ -16,6 +16,7 @@ import {
 } from '../constants/userContants';
 import Axios from 'axios';
 import { ORDERS_LOGGED_IN_USERS_RESET } from '../constants/orderConstants';
+import { CART_RESET } from '../constants/cartConstants';
 
 export const login = (email, password) => async (dispatch) => {
 	try {
@@ -55,6 +56,7 @@ export const logout = () => (dispatch) => {
 	dispatch({ type: USER_LOGOUT });
 	dispatch({ type: USER_DETAILS_RESET });
 	dispatch({ type: ORDERS_LOGGED_IN_USERS_RESET });
+	dispatch({ type: CART_RESET });
 };
 
 export const register = (firstName, lastName, email, password) => async (
