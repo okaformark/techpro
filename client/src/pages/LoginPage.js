@@ -139,7 +139,8 @@ const LoginPage = ({ location, history }) => {
 						</Grid>
 						<Grid item>
 							<Link
-								to={redirect ? `/register ? redirect=${redirect}` : '/register'}
+								to={'/register'}
+								// to={redirect ? `/register ? redirect=${redirect}` : '/register'}
 								variant='body2'
 							>
 								Don't have an account? Sign Up
