@@ -23,9 +23,16 @@ const Header = ({ history }) => {
 		<header>
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
 				<Container>
-					<LinkContainer to='/'>
-						<Navbar.Brand>Tech Pro</Navbar.Brand>
-					</LinkContainer>
+					{userInfo ? (
+						<LinkContainer to='/'>
+							<Navbar.Brand>Tech Pro</Navbar.Brand>
+						</LinkContainer>
+					) : (
+						<LinkContainer to='/login'>
+							<Navbar.Brand>Tech Pro</Navbar.Brand>
+						</LinkContainer>
+					)}
+
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='ml-auto'>
