@@ -29,22 +29,24 @@ const Header = ({ history }) => {
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='ml-auto'>
-							<LinkContainer to='/cart'>
-								<Nav.Link>
-									{cartLen > 0 && (
-										<span className='fa-layers fa-fw mx-2'>
-											<i className='fas fa-shopping-cart fa-lg'></i>
-											<span
-												className='fa-layers-counter fa-layers-top-left'
-												style={{ background: 'tomato', fontSize: '2.5rem' }}
-											>
-												{cartLen}
+							{userInfo && (
+								<LinkContainer to='/cart'>
+									<Nav.Link>
+										{cartLen > 0 && (
+											<span className='fa-layers fa-fw mx-2'>
+												<i className='fas fa-shopping-cart fa-lg'></i>
+												<span
+													className='fa-layers-counter fa-layers-top-left'
+													style={{ background: 'tomato', fontSize: '2.5rem' }}
+												>
+													{cartLen}
+												</span>
 											</span>
-										</span>
-									)}
-									Cart
-								</Nav.Link>
-							</LinkContainer>
+										)}
+										Cart
+									</Nav.Link>
+								</LinkContainer>
+							)}
 							{userInfo ? (
 								<NavDropdown title={userInfo.firstName} id='username'>
 									<LinkContainer to='profile'>
