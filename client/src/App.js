@@ -14,6 +14,7 @@ import PaymentMethodPage from './pages/PaymentMethod';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import MyOrderPage from './pages/MyOrderPage';
 import AdminUsersList from './pages/AdminUsersList';
+import UserEditPage from './pages/UserEditPage';
 
 const App = () => {
 	return (
@@ -22,6 +23,7 @@ const App = () => {
 			<main className='py-3'>
 				<Container>
 					<Route path='/admin/userList' component={AdminUsersList} />
+					<Route path='/admin/user/:id/edit' component={UserEditPage} />
 					<Route path='/order/:id' component={MyOrderPage} />
 					<Route path='/shipping' component={ShippingPage} />
 					<Route path='/payment' component={PaymentMethodPage} />
