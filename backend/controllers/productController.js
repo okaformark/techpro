@@ -33,7 +33,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 		res.json({ message: 'Product removed' });
 	} else {
 		res.status(404);
-		throw new Error('Not Found');
+		throw new Error('Product not removed');
 	}
 });
 module.exports = { getProducts, getProductById, deleteProduct };

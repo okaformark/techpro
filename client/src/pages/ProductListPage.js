@@ -4,7 +4,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
-import { listProduct } from '../actions/productActions';
+import { listProduct, deleteProduct } from '../actions/productActions';
 
 const ProductListPage = ({ history, match }) => {
 	const dispatch = useDispatch();
@@ -12,11 +12,18 @@ const ProductListPage = ({ history, match }) => {
 	const productList = useSelector((state) => state.productList);
 	const { loading, error, products } = productList;
 
+	const productDelete = useSelector((state) => state.productDelete);
+	const {
+		loading: loadingDelete,
+		error: errorDelete,
+		success: successDelete,
+	} = productDelete;
+
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
 	const deleteHandler = (id) => {
-		console.log('lll');
+		dispatch(deleteProduct(id));
 	};
 
 	const createProductHandler = (product) => {
@@ -28,7 +35,7 @@ const ProductListPage = ({ history, match }) => {
 		} else {
 			history.push('/login');
 		}
-	}, [dispatch, history, userInfo]);
+	}, [dispatch, history, userInfo, successDelete]);
 	return (
 		<>
 			<Row className='align-items-center'>
@@ -42,6 +49,8 @@ const ProductListPage = ({ history, match }) => {
 					</Button>
 				</Col>
 			</Row>
+			{loadingDelete && <Loader />}
+			{errorDelete && <Message variant='danger'>{errorDelete}</Message>}
 			{loading ? (
 				<Loader />
 			) : error ? (
