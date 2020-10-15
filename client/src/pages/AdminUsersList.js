@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 
 const AdminUsersList = ({ history }) => {
 	const dispatch = useDispatch();
@@ -12,11 +12,14 @@ const AdminUsersList = ({ history }) => {
 	const adminUserList = useSelector((state) => state.adminUserList);
 	const { loading, error, users } = adminUserList;
 
+	const userDelete = useSelector((state) => state.userDelete);
+	const { success: successDelete } = userDelete;
+
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
 	const deleteHandler = (id) => {
-		console.log('delete');
+		dispatch(deleteUser(id));
 	};
 
 	useEffect(() => {
@@ -25,7 +28,7 @@ const AdminUsersList = ({ history }) => {
 		} else {
 			history.push('/login');
 		}
-	}, [dispatch, history]);
+	}, [dispatch, history, successDelete, userInfo]);
 	return (
 		<>
 			<h1>Users</h1>
