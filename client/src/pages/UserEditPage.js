@@ -31,7 +31,7 @@ const UserEditPage = ({ match, history }) => {
 
 	useEffect(() => {
 		if (successEdit) {
-			//dispatch({ type: USER_EDIT_RESET });
+			dispatch({ type: USER_EDIT_RESET });
 			history.push('/admin/userList');
 		} else {
 			if (!(user.firstName && user.lastName) || user._id !== userId) {
