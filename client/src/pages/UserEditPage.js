@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
 import FormContainer from '../component/FormContainer';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, editUser } from '../actions/userActions';
+import { USER_EDIT_RESET } from '../constants/userContants';
 
 const UserEditPage = ({ match, history }) => {
 	const userId = match.params.id;
@@ -16,21 +17,38 @@ const UserEditPage = ({ match, history }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
 
 	const dispatch = useDispatch();
+
 	const userDetails = useSelector((state) => state.userDetails);
-	const { loading: loadingEdit, user, error: errorEdit } = userDetails;
+	const { loading, user, error } = userDetails;
+
+	const userEdit = useSelector((state) => state.userEdit);
+	const {
+		loading: loadingEdit,
+		success: successEdit,
+		error: errorEdit,
+	} = userEdit;
+	console.log(successEdit);
 
 	useEffect(() => {
-		if (!(user.firstName && user.lastName) || user._id !== userId) {
-			dispatch(getUserDetails(userId));
+		if (successEdit) {
+			//dispatch({ type: USER_EDIT_RESET });
+			history.push('/admin/userList');
 		} else {
-			setFirstName(user.firstName);
-			setLastName(user.lastName);
-			setEmail(user.email);
-			setIsAdmin(user.isAdmin);
+			if (!(user.firstName && user.lastName) || user._id !== userId) {
+				dispatch(getUserDetails(userId));
+			} else {
+				setFirstName(user.firstName);
+				setLastName(user.lastName);
+				setEmail(user.email);
+				setIsAdmin(user.isAdmin);
+			}
 		}
-	}, [user, dispatch, userId]);
+	}, [user, dispatch, userId, successEdit, history]);
 
-	const submitHandler = () => {};
+	const submitHandler = (e) => {
+		e.preventDefault();
+		dispatch(editUser({ _id: userId, firstName, lastName, email, isAdmin }));
+	};
 	return (
 		<>
 			<Link to='/admin/userList' className='btn btn-light my-3'>
@@ -40,10 +58,10 @@ const UserEditPage = ({ match, history }) => {
 				<h1>Edit User</h1>
 				{loadingEdit && <Loader />}
 				{errorEdit && <Message variant='danger'>{errorEdit}</Message>}
-				{loadingEdit ? (
+				{loading ? (
 					<Loader />
-				) : errorEdit ? (
-					<Message variant='danger'>{errorEdit}</Message>
+				) : error ? (
+					<Message variant='danger'>{error}</Message>
 				) : (
 					<Form onSubmit={submitHandler}>
 						<Form.Group controlId='name'>
