@@ -23,9 +23,16 @@ const Header = ({ history }) => {
 		<header>
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
 				<Container>
-					<LinkContainer to='/'>
-						<Navbar.Brand>Tech Pro</Navbar.Brand>
-					</LinkContainer>
+					{userInfo ? (
+						<LinkContainer to='/'>
+							<Navbar.Brand>Tech Pro</Navbar.Brand>
+						</LinkContainer>
+					) : (
+						<LinkContainer to='/login'>
+							<Navbar.Brand>Tech Pro</Navbar.Brand>
+						</LinkContainer>
+					)}
+
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='ml-auto'>
@@ -62,6 +69,19 @@ const Header = ({ history }) => {
 										<i className='fas fa-user mx-2'></i>Log in
 									</Nav.Link>
 								</LinkContainer>
+							)}
+							{userInfo && userInfo.isAdmin && (
+								<NavDropdown title='Admin' id='adminMenu'>
+									<LinkContainer to='/admin/userList'>
+										<NavDropdown.Item>Users</NavDropdown.Item>
+									</LinkContainer>
+									<LinkContainer to='/admin/productList'>
+										<NavDropdown.Item>Products</NavDropdown.Item>
+									</LinkContainer>
+									<LinkContainer to='/admin/orderList'>
+										<NavDropdown.Item>Orders</NavDropdown.Item>
+									</LinkContainer>
+								</NavDropdown>
 							)}
 						</Nav>
 					</Navbar.Collapse>
