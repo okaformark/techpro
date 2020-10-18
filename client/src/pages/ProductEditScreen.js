@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
 import FormContainer from '../component/FormContainer';
-import { getUserDetails } from '../actions/userActions';
-import { listSingleProduct } from '../actions/productActions';
+import { listSingleProduct, editProduct } from '../actions/productActions';
+import { PRODUCT_EDIT_RESET } from '../constants/productsConstants';
 
 const ProductEditPage = ({ match, history }) => {
 	const productId = match.params.id;
@@ -24,22 +24,47 @@ const ProductEditPage = ({ match, history }) => {
 	const singleProduct = useSelector((state) => state.singleProduct);
 	const { loading, product, error } = singleProduct;
 
+	const productEdit = useSelector((state) => state.productEdit);
+	const {
+		loading: loadingEdit,
+		success: successEdit,
+		error: errorEdit,
+	} = productEdit;
+
+	console.log(successEdit);
 	useEffect(() => {
-		if (!product.name || product._id !== productId) {
-			dispatch(listSingleProduct(productId));
+		if (successEdit) {
+			dispatch({ type: PRODUCT_EDIT_RESET });
+			history.push('/admin/productList');
 		} else {
-			setName(product.name);
-			setBrand(product.brand);
-			setPrice(product.price);
-			setDescription(product.description);
-			setCategory(product.category);
-			setCountInStock(product.countInStock);
-			setImage(product.image);
+			if (!product.name || product._id !== productId) {
+				dispatch(listSingleProduct(productId));
+			} else {
+				setName(product.name);
+				setBrand(product.brand);
+				setPrice(product.price);
+				setDescription(product.description);
+				setCategory(product.category);
+				setCountInStock(product.countInStock);
+				setImage(product.image);
+			}
 		}
-	}, [dispatch, productId, history, product]);
+	}, [dispatch, productId, history, product, successEdit]);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
+		dispatch(
+			editProduct({
+				_id: productId,
+				name,
+				price,
+				image,
+				brand,
+				category,
+				description,
+				countInStock,
+			})
+		);
 	};
 	return (
 		<>
@@ -48,8 +73,8 @@ const ProductEditPage = ({ match, history }) => {
 			</Link>
 			<FormContainer>
 				<h1>Edit Product</h1>
-				{/* {loadingEdit && <Loader />}
-				{errorEdit && <Message variant='danger'>{errorEdit}</Message>} */}
+				{loadingEdit && <Loader />}
+				{errorEdit && <Message variant='danger'>{errorEdit}</Message>}
 				{loading ? (
 					<Loader />
 				) : error ? (
