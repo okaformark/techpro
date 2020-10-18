@@ -18,6 +18,7 @@ const ProductEditPage = ({ match, history }) => {
 	const [category, setCategory] = useState('');
 	const [image, setImage] = useState('');
 	const [countInStock, setCountInStock] = useState(0);
+	const [uploading, setUploading] = useState(false);
 
 	const dispatch = useDispatch();
 
