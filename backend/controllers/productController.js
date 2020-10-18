@@ -83,7 +83,7 @@ const editProduct = asyncHandler(async (req, res) => {
 		res.status(201).json(editedProduct);
 	} else {
 		res.status(404);
-		throw new Error('Not found');
+		throw new Error('Not Updated');
 	}
 });
 module.exports = {
