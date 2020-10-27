@@ -1,8 +1,11 @@
 const express = require('express');
+// const asyncHandler = require('express-async-handler');
 const multer = require('multer');
 const path = require('path');
+// const cloudinary = require('cloudinary');
 
 const router = express.Router();
+
 const storage = multer.diskStorage({
 	destination(req, file, cb) {
 		cb(null, 'uploads/');
@@ -22,7 +25,7 @@ function checkFileType(file, cb) {
 	if (extname && mimetype) {
 		return cb(null, true);
 	} else {
-		cb('images only');
+		cb('unsupported file format. Images only');
 	}
 }
 
@@ -34,6 +37,9 @@ const upload = multer({
 });
 
 router.post('/', upload.single('image'), (req, res) => {
+	// const uploadPhoto = await cloudinary.uploader.upload(`/${req.file.path}`);
+	console.log(req.file.path);
 	res.send(`/${req.file.path}`);
+	//res.send(uploadPhoto.url);
 });
 module.exports = router;

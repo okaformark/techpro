@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
 const connectDB = require('./config/db');
 const { notFound404, errorHandler } = require('./middleware/errorMiddleware');
 const productRoutes = require('./routes/productRoute');
@@ -13,6 +14,13 @@ dotenv.config();
 
 //config. DB
 connectDB();
+
+//config cloudinary
+cloudinary.config({
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 //initilize express
 const app = express();
@@ -32,6 +40,7 @@ app.get('/api/config/paypal', (req, res) =>
 );
 //make folder static so it can be implemented by browser
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 //error middleware
 app.use(notFound404);
 app.use(errorHandler);

@@ -139,7 +139,6 @@ export const listAllOrdersUser = () => async (dispatch, getState) => {
 		};
 		const { data } = await Axios.get(`/api/orders/myorders/`, config);
 
-		console.log(data);
 		dispatch({
 			type: ORDERS_LOGGED_IN_USERS_SUCCESS,
 			payload: data,
