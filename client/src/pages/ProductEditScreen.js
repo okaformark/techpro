@@ -7,6 +7,7 @@ import Loader from '../component/Loader';
 import FormContainer from '../component/FormContainer';
 import { listSingleProduct, editProduct } from '../actions/productActions';
 import { PRODUCT_EDIT_RESET } from '../constants/productsConstants';
+import Axios from 'axios';
 
 const ProductEditPage = ({ match, history }) => {
 	const productId = match.params.id;
@@ -18,6 +19,7 @@ const ProductEditPage = ({ match, history }) => {
 	const [category, setCategory] = useState('');
 	const [image, setImage] = useState('');
 	const [countInStock, setCountInStock] = useState(0);
+	const [uploading, setUploading] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -31,7 +33,6 @@ const ProductEditPage = ({ match, history }) => {
 		error: errorEdit,
 	} = productEdit;
 
-	console.log(successEdit);
 	useEffect(() => {
 		if (successEdit) {
 			dispatch({ type: PRODUCT_EDIT_RESET });
@@ -50,6 +51,27 @@ const ProductEditPage = ({ match, history }) => {
 			}
 		}
 	}, [dispatch, productId, history, product, successEdit]);
+
+	const uploadFileHandler = async (e) => {
+		const file = e.target.files[0];
+		const formData = new FormData();
+		formData.append('image', file);
+		setUploading(true);
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			};
+			const { data } = await Axios.post('/api/upload', formData, config);
+			setImage(data);
+			console.log(image);
+			setUploading(false);
+		} catch (error) {
+			console.log(error);
+			setUploading(false);
+		}
+	};
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -108,6 +130,13 @@ const ProductEditPage = ({ match, history }) => {
 								value={image}
 								onChange={(e) => setImage(e.target.value)}
 							></Form.Control>
+							<Form.File
+								id='image-file'
+								label='choose file'
+								custom
+								onChange={uploadFileHandler}
+							></Form.File>
+							{uploading && <Loader />}
 						</Form.Group>
 						<Form.Group controlId='brand'>
 							<Form.Label>Brand</Form.Label>

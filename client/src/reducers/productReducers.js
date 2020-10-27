@@ -60,6 +60,7 @@ export const singleProductReducer = (
 				loading: false,
 				error: action.payload,
 			};
+
 		default:
 			return state;
 	}

@@ -131,7 +131,11 @@ export const editProduct = (product) => async (dispatch, getState) => {
 			},
 		};
 
-		const { data } = Axios.put(`/api/products/${product._id}`, product, config);
+		const { data } = await Axios.put(
+			`/api/products/${product._id}`,
+			product,
+			config
+		);
 
 		dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
 	} catch (error) {

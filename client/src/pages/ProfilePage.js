@@ -33,8 +33,6 @@ const ProfilePage = ({ location, history }) => {
 		orders,
 	} = orderLoggedInUser;
 
-	console.log(orders, '????', loadingOrders);
-
 	useEffect(() => {
 		//if user is not logged in
 		if (!userInfo) {
@@ -42,7 +40,6 @@ const ProfilePage = ({ location, history }) => {
 		} else {
 			if (!(user.firstName || user.lastName)) {
 				dispatch(getUserDetails('profile'));
-				console.log('fired off');
 				dispatch(listAllOrdersUser());
 			} else {
 				setFirstName(user.firstName);
