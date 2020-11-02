@@ -29,6 +29,10 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//make folder static so it can be implemented by browser
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static('uploads'));
+
 // route to this url
 app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoute);
@@ -38,8 +42,6 @@ app.use('/api/upload', uploadRoute);
 app.get('/api/config/paypal', (req, res) =>
 	res.send(process.env.PAYPAL_CLIENT_ID)
 );
-//make folder static so it can be implemented by browser
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 //error middleware
 app.use(notFound404);
