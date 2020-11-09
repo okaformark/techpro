@@ -17,6 +17,7 @@ import AdminUsersList from './pages/AdminUsersList';
 import UserEditPage from './pages/UserEditPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductEditPage from './pages/ProductEditScreen';
+import OrderListPage from './pages/OrderListPage';
 
 const App = () => {
 	return (
@@ -25,6 +26,7 @@ const App = () => {
 			<main className='py-3'>
 				<Container>
 					<Route path='/admin/userList' component={AdminUsersList} />
+					<Route path='/admin/orderList' component={OrderListPage} />
 					<Route path='/admin/productList' component={ProductListPage} />
 					<Route path='/admin/user/:id/edit' component={UserEditPage} />
 					<Route path='/admin/product/:id/edit' component={ProductEditPage} />
