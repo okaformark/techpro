@@ -16,7 +16,7 @@ import {
 	ORDERS_DELIVER_RESET,
 } from '../constants/orderConstants';
 
-const MyOrderPage = ({ match }) => {
+const MyOrderPage = ({ match, history }) => {
 	const orderId = match.params.id;
 
 	//state for paypal sdk
@@ -52,6 +52,9 @@ const MyOrderPage = ({ match }) => {
 	}
 
 	useEffect(() => {
+		if (!userInfo) {
+			history.push('/login');
+		}
 		// build script with paypal sdk and client id
 		const addPaypalScript = async () => {
 			const { data: clientId } = await Axios.get('/api/config/paypal');
@@ -76,7 +79,7 @@ const MyOrderPage = ({ match }) => {
 				setSdkReady(true);
 			}
 		}
-	}, [dispatch, order, orderId, successPay, successDeliver]);
+	}, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
 
 	const successPaymentHandler = (paymentResult) => {
 		console.log(paymentResult);
@@ -214,17 +217,20 @@ const MyOrderPage = ({ match }) => {
 								</ListGroup.Item>
 							)}
 							{loadingDeliver && <Loader />}
-							{userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-								<ListGroup.Item>
-									<Button
-										type='button'
-										className='btn btn-block'
-										onClick={deliverHandler}
-									>
-										Mark as Delivered
-									</Button>
-								</ListGroup.Item>
-							)}
+							{userInfo &&
+								userInfo.isAdmin &&
+								order.isPaid &&
+								!order.isDelivered && (
+									<ListGroup.Item>
+										<Button
+											type='button'
+											className='btn btn-block'
+											onClick={deliverHandler}
+										>
+											Mark as Delivered
+										</Button>
+									</ListGroup.Item>
+								)}
 						</ListGroup>
 					</Card>
 				</Col>
