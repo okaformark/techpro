@@ -39,7 +39,8 @@ const OrderListPage = ({ history }) => {
 							<th>LAST NAME</th>
 							<th>DATE</th>
 							<th>TOTAL PRICE</th>
-							<th>DELIVERED</th>
+							<th>PAID ON</th>
+							<th>DELIVERED ON</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -65,7 +66,7 @@ const OrderListPage = ({ history }) => {
 									)}
 								</td>
 								<td>
-									<LinkContainer to={`/admin/order/${order._id}`}>
+									<LinkContainer to={`/order/${order._id}`}>
 										<Button variant='light' className='btn-sm'>
 											Details
 										</Button>
