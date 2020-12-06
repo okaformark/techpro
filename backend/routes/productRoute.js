@@ -6,12 +6,14 @@ const {
 	deleteProduct,
 	editProduct,
 	createProduct,
+	createProductReview,
 } = require('../controllers/productController');
 
 const { protect, admin } = require('../middleware/authMiddleware');
 
 // both methods are the same
 router.route('/').get(getProducts).post(protect, admin, createProduct);
+router.route('/:id/reviews').post(protect, createProductReview);
 
 router
 	.route('/:id')
