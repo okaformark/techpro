@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/ProductModel');
+const Orders = require('../models/OrderModel');
 
 // @desc    fetch all products
 // @route    GET /api/products
@@ -95,6 +96,25 @@ const createProductReview = asyncHandler(async (req, res) => {
 
 	const product = await Product.findById(req.params.id);
 
+	const orders = await Orders.find({ user: req.user._id });
+
+	// Array of product ids that the user ordered
+	const ordersItems = [].concat.apply(
+		[],
+		orders.map((order) =>
+			order.orderItems.map((item) => item.product.toString())
+		)
+	);
+
+	if (product) {
+		// Check if the id of the product matches any of the users ordered products
+		const hasBought = ordersItems.includes(product._id.toString());
+
+		if (!hasBought) {
+			res.status(400);
+			throw new Error('You can only review products you bought');
+		}
+	}
 	if (product) {
 		console.log(product);
 		const reviewed = product.review.find(
@@ -127,6 +147,7 @@ const createProductReview = asyncHandler(async (req, res) => {
 		throw new Error('Not Updated');
 	}
 });
+
 module.exports = {
 	getProducts,
 	getProductById,
