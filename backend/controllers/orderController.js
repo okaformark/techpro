@@ -75,6 +75,24 @@ const updatePaidStatus = asyncHandler(async (req, res) => {
 	}
 });
 
+//@desc	update delivered status --out for delivery
+//@route	PUT /api/orders/:id/deliver
+//@access	Private/Admin
+const updateOrderToOutForDelivery = asyncHandler(async (req, res) => {
+	const order = await Order.findById(req.params.id);
+	if (order) {
+		order.isDelivered = true;
+		order.deliveredAt = Date.now();
+
+		const updatedOrder = await order.save();
+		console.log(updatedOrder, '444');
+		res.json(updatedOrder);
+	} else {
+		res.status(404);
+		throw new Error('Payment failed');
+	}
+});
+
 //@desc		get loggedin user order
 //@route	GET /api/orders/myorders
 //@access	private
@@ -96,6 +114,7 @@ module.exports = {
 	addOrderItems,
 	getOrderById,
 	updatePaidStatus,
+	updateOrderToOutForDelivery,
 	getUserOrders,
 	getAllOrders,
 };
