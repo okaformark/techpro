@@ -12,6 +12,9 @@ import {
 	ORDERS_LOGGED_IN_USERS_REQUEST,
 	ORDERS_LOGGED_IN_USERS_SUCCESS,
 	ORDERS_LOGGED_IN_USERS_FAIL,
+	ORDERS_GET_REQUEST,
+	ORDERS_GET_SUCCESS,
+	ORDERS_GET_FAIL,
 } from '../constants/orderConstants';
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -146,6 +149,33 @@ export const listAllOrdersUser = () => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({
 			type: ORDERS_LOGGED_IN_USERS_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
+};
+
+export const getAllOrders = () => async (dispatch, getState) => {
+	try {
+		dispatch({ type: ORDERS_GET_REQUEST });
+
+		const {
+			userLogin: { userInfo },
+		} = getState();
+
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userInfo.token}`,
+			},
+		};
+
+		const { data } = await Axios.get(`/api/orders`, config);
+		dispatch({ type: ORDERS_GET_SUCCESS, payload: data });
+	} catch (error) {
+		dispatch({
+			type: ORDERS_GET_FAIL,
 			payload:
 				error.response && error.response.data.message
 					? error.response.data.message
