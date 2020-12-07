@@ -27,7 +27,12 @@ const App = () => {
 				<Container>
 					<Route path='/admin/userList' component={AdminUsersList} />
 					<Route path='/admin/orderList' component={OrderListPage} />
-					<Route path='/admin/productList' component={ProductListPage} />
+					<Route path='/admin/productList' component={ProductListPage} exact />
+					<Route
+						path='/admin/productList/:pageNumber'
+						component={ProductListPage}
+						exact
+					/>
 					<Route path='/admin/user/:id/edit' component={UserEditPage} />
 					<Route path='/admin/product/:id/edit' component={ProductEditPage} />
 					<Route path='/order/:id' component={MyOrderPage} />
@@ -39,7 +44,12 @@ const App = () => {
 					<Route path='/profile' component={ProfilePage} />
 					<Route path='/product/:id' component={ProductDetailsPage} />
 					<Route path='/cart/:id?' component={CartPage} />
-					<Route path='/search/:keyword' component={HomePage} />
+					<Route path='/search/:keyword' component={HomePage} exact />
+					<Route path='/page/:pageNumber' component={HomePage} />
+					<Route
+						path='/search/:keyword/page/:pageNumber'
+						component={HomePage}
+					/>
 					<Route path='/' component={HomePage} exact />
 				</Container>
 			</main>
