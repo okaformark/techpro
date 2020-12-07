@@ -18,6 +18,7 @@ import {
 import Loader from '../component/Loader';
 import Message from '../component/Message';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productsConstants';
+import { CART_RESET } from '../constants/cartConstants';
 
 const ProductDetailsPage = ({ history, match }) => {
 	const [quantity, setQuantity] = useState(1);
@@ -66,7 +67,10 @@ const ProductDetailsPage = ({ history, match }) => {
 				comments,
 			})
 		);
-		history.push(`/product/${match.params.id}`);
+		history.push(`/`);
+		// history.push(`/products/${match.params.id}`);
+		dispatch({ type: CART_RESET });
+		localStorage.removeItem('cartItem');
 	};
 	return (
 		<>
