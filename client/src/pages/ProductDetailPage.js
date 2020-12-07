@@ -19,6 +19,7 @@ import Loader from '../component/Loader';
 import Message from '../component/Message';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productsConstants';
 import { CART_RESET } from '../constants/cartConstants';
+import Meta from '../component/Meta';
 
 const ProductDetailsPage = ({ history, match }) => {
 	const [quantity, setQuantity] = useState(1);
@@ -79,6 +80,7 @@ const ProductDetailsPage = ({ history, match }) => {
 				<Message variant='danger'>{error}</Message>
 			) : (
 				<>
+					<Meta title={product.name} />
 					<Row>
 						<Col md={6} className='product-page-section'>
 							<Image src={product.image} alt={product.name} fluid />
