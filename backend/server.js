@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cloudinary = require('cloudinary').v2;
@@ -46,6 +47,18 @@ app.use('/api/upload', uploadRoute);
 app.get('/api/config/paypal', (req, res) =>
 	res.send(process.env.PAYPAL_CLIENT_ID)
 );
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+
+	app.get('*', (req, res) =>
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+	);
+} else {
+	app.get('/', (req, res) => {
+		res.send('API IS RUNNING');
+	});
+}
 
 //error middleware
 app.use(notFound404);
