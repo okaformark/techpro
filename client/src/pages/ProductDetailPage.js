@@ -40,19 +40,15 @@ const ProductDetailsPage = ({ history, match }) => {
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
-	useEffect(
-		() => {
-			if (successProductReview) {
-				alert('Review Submitted');
-				setComments('');
-				setRating(0);
-				dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
-			}
-			dispatch(listSingleProduct(match.params.id));
-		},
-		[dispatch, match.params.id],
-		successProductReview
-	);
+	useEffect(() => {
+		if (successProductReview) {
+			alert('Review Submitted');
+			setComments('');
+			setRating(0);
+			dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+		}
+		dispatch(listSingleProduct(match.params.id));
+	}, [dispatch, match.params.id, successProductReview, loadingProductReview]);
 
 	const addToCartHandler = (product) => {
 		console.log(product);
@@ -183,6 +179,12 @@ const ProductDetailsPage = ({ history, match }) => {
 								))}
 								<ListGroup.Item>
 									<h2>Leave a review</h2>
+									{successProductReview && (
+										<Message variant='success'>
+											Review submitted successfully
+										</Message>
+									)}
+									{loadingProductReview && <Loader />}
 									{errorProductReview && (
 										<Message variant='danger'>{errorProductReview}</Message>
 									)}
