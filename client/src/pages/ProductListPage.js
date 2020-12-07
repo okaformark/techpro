@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button, Row, Col, Pagination } from 'react-bootstrap';
+import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
@@ -18,7 +18,7 @@ const ProductListPage = ({ history, match }) => {
 	const dispatch = useDispatch();
 
 	const productList = useSelector((state) => state.productList);
-	const { loading, error, products, page, pages, keyword } = productList;
+	const { loading, error, products, page, pages } = productList;
 
 	const productDelete = useSelector((state) => state.productDelete);
 	const {
