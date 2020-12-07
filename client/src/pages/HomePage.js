@@ -6,14 +6,16 @@ import { listProduct } from '../actions/productActions';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
 
-const HomePage = () => {
+const HomePage = ({ match }) => {
+	const keyword = match.params.keyword;
+
 	const dispatch = useDispatch();
 	const productList = useSelector((state) => state.productList);
 	const { loading, error, products } = productList;
 
 	useEffect(() => {
-		dispatch(listProduct());
-	}, [dispatch]);
+		dispatch(listProduct(keyword));
+	}, [dispatch, keyword]);
 	return (
 		<>
 			<h1>LATEST GADGETS</h1>
