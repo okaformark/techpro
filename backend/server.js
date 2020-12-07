@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const path = require('path');
+const morgan = require('morgan');
 const cloudinary = require('cloudinary').v2;
 const connectDB = require('./config/db');
 const { notFound404, errorHandler } = require('./middleware/errorMiddleware');
@@ -25,6 +25,10 @@ cloudinary.config({
 //initilize express
 const app = express();
 
+//morgan
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
+}
 // body parser middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
